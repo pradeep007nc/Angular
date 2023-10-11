@@ -1,0 +1,24 @@
+<form #f="ngForm" (ngSubmit)="submit(f)">
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input
+      required
+      minlength="3"
+      pattern="banana"
+      type="text"
+      ngModel
+      name="firstName"
+      #firstName="ngModel"
+      id="firstName">
+
+    <div *ngIf="f.controls['firstName']?.touched && !f.controls['firstName']?.valid" class="alert alert-danger">
+      <div *ngIf="f.controls['firstName']?.hasError('required')">First Name is required.</div>
+      <div *ngIf="f.controls['firstName']?.hasError('minlength')">First Name should be at least 3 characters.</div>
+      <div *ngIf="f.controls['firstName']?.hasError('pattern')">Invalid pattern. It should contain the word 'banana'.</div>
+    </div>
+  </div>
+
+  <!-- Other form controls go here -->
+
+  <button type="submit" [disabled]="!f.valid">Submit</button>
+</form>
