@@ -1,24 +1,42 @@
-<form #f="ngForm" (ngSubmit)="submit(f)">
-  <div class="form-group">
-    <label for="firstName">First Name</label>
+<form #form_module = "ngForm">
+  <div class="form-gorup">
+    <label for="name">Course Name</label>
     <input
       required
       minlength="3"
-      pattern="banana"
-      type="text"
       ngModel
-      name="firstName"
-      #firstName="ngModel"
-      id="firstName">
+      name="name"
+      #name="ngModel"
+      type="text"
+      id="name"
+      class="form-control"
+    />
 
-    <div *ngIf="f.controls['firstName']?.touched && !f.controls['firstName']?.valid" class="alert alert-danger">
-      <div *ngIf="f.controls['firstName']?.hasError('required')">First Name is required.</div>
-      <div *ngIf="f.controls['firstName']?.hasError('minlength')">First Name should be at least 3 characters.</div>
-      <div *ngIf="f.controls['firstName']?.hasError('pattern')">Invalid pattern. It should contain the word 'banana'.</div>
+    <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
+      <div *ngIf="name.errors!['required']">Name field is required</div>
+      <div *ngIf="name.errors!['minlength']">Name should be 3 letters</div>
     </div>
   </div>
 
-  <!-- Other form controls go here -->
+  <div class="form-group">
+    <label for="category">Category</label>
+    <select required ngModel name="category" #category="ngModel" id="category" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+    </select>
+    <div *ngIf="category.touched && category.invalid" class="alert alert-danger">
+      Category is required
+    </div>
+  </div>
 
-  <button type="submit" [disabled]="!f.valid">Submit</button>
+  <div class="checkbox">
+    <label for="moneyback">
+      <input ngModel name="moneyback" type="checkbox" id="moneyback" />
+      30 days money back guarentee
+    </label>
+  </div>
+
+  <button class="btn btn-primary">Create</button>
 </form>
+
+<div>{{form_module.value |json}}</div>

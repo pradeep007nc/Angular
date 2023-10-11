@@ -7,7 +7,9 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./template-forms.component.css']
 })
 export class TemplateFormsComponent {
-  submit(f: any){
-    console.log(f.value);
-  }
+  categories = [
+    {id: 1, name: 'dev'},
+    {id: 2, name: 'mia'},
+    {id: 3, name: 'acc'}
+  ];
 }
