@@ -17,21 +17,13 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)(corsOptions));
 mongoose_1.default.set("strict", false);
-mongoose_1.default
-    .connect('mongodb+srv://Pradeep:root@demodatabase.1uyroh0.mongodb.net/')
-    .then(() => {
-    console.log("Connected to MongoDB");
-    app.listen(3000, () => {
-        console.log("Listening on port 3000");
-    });
-})
-    .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
+app.listen(3000, () => {
+    console.log("Listening on port 3000");
 });
 app.get("/fetch-data", async (req, res) => {
     try {
         // Use the MongoDB driver to fetch data
-        const client = new mongodb_1.MongoClient('mongodb+srv://Pradeep:root@demodatabase.1uyroh0.mongodb.net/');
+        const client = new mongodb_1.MongoClient('mongodb+srv://Pradeep:root@demodatabase.1uyroh0.mongodb.net/?retryWrites=true&w=majority');
         await client.connect();
         const coll = client.db('Assignment').collection('mean');
         const filter = DataFetch_1.default;

@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import mongoose from "mongoose";
 import JsonFetchDataModel from "./db/DataFetch";
 import cors from "cors";
 
@@ -15,26 +14,14 @@ const app = express();
 app.use(express.json());
 app.use(cors(corsOptions));
 
-mongoose.set("strict", false);
-
-mongoose
-  .connect(
-    'mongodb+srv://Pradeep:root@demodatabase.1uyroh0.mongodb.net/'
-  )
-  .then(() => {
-    console.log("Connected to MongoDB");
-    app.listen(3000, () => {
-      console.log("Listening on port 3000");
-    });
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
+  app.listen(3000, () => {
+    console.log("Listening on port 3000");
   });
 
   app.get("/fetch-data", async (req: Request, res: Response) => {
     try {
       // Use the MongoDB driver to fetch data
-      const client = new MongoClient('mongodb+srv://Pradeep:root@demodatabase.1uyroh0.mongodb.net/');
+      const client = new MongoClient('mongodb+srv://Pradeep:root@demodatabase.1uyroh0.mongodb.net/?retryWrites=true&w=majority');
       await client.connect();
   
       const coll = client.db('Assignment').collection('mean');
