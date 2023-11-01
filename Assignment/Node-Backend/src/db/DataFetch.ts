@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 // Define a schema for the data
-const insightSchema = new mongoose.Schema({
+const JsonFetchDataModel = {
   end_year: String,
   intensity: Number,
   sector: String,
@@ -19,12 +19,6 @@ const insightSchema = new mongoose.Schema({
   source: String,
   title: String,
   likelihood: Number
-});
-
-// Create a model using the schema
-const JsonFetchDataModel = mongoose.model('Insight', insightSchema);
+};
 
 export default JsonFetchDataModel;
-
-
-

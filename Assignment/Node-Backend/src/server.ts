@@ -1,32 +1,52 @@
-import express, { Request, Response } from 'express';
-import mongoose from 'mongoose';
-import JsonFetchDataModel from './db/DataFetch';
+import express, { Request, Response } from "express";
+import mongoose from "mongoose";
+import JsonFetchDataModel from "./db/DataFetch";
+import cors from "cors";
+
+import {MongoClient} from 'mongodb';
+
+const corsOptions = {
+  origin: "http://localhost:4200", 
+  methods: "GET,PUT,POST,DELETE",
+  allowedHeaders: "Content-Type, Authorization",
+};
 
 const app = express();
-app.use(express.json())
+app.use(express.json());
+app.use(cors(corsOptions));
 
 mongoose.set("strict", false);
 
-mongoose.connect('mongodb+srv://Pradeep:root@demodatabase.1uyroh0.mongodb.net/Assignment?retryWrites=true&w=majority')
+mongoose
+  .connect(
+    'mongodb+srv://Pradeep:root@demodatabase.1uyroh0.mongodb.net/'
+  )
   .then(() => {
-    console.log('Connected to MongoDB');
+    console.log("Connected to MongoDB");
     app.listen(3000, () => {
-      console.log('Listening on port 3000');
+      console.log("Listening on port 3000");
     });
   })
   .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
+    console.error("Error connecting to MongoDB:", error);
   });
 
-
-  app.get('/fetch-data', async (req: Request, res: Response) => {
+  app.get("/fetch-data", async (req: Request, res: Response) => {
     try {
-      const backendData = await JsonFetchDataModel.find({});
-      console.log('Fetched data:', backendData);
-      res.status(200).json(backendData);
+      // Use the MongoDB driver to fetch data
+      const client = new MongoClient('mongodb+srv://Pradeep:root@demodatabase.1uyroh0.mongodb.net/');
+      await client.connect();
+  
+      const coll = client.db('Assignment').collection('mean');
+      const filter = JsonFetchDataModel;
+      const cursor = coll.find(filter);
+      const result = await cursor.toArray();
+  
+      await client.close();
+
+      res.status(200).json(result);
     } catch (error: any) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       res.status(500).json({ message: error.message });
     }
   });
-  
