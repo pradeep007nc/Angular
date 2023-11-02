@@ -26,14 +26,19 @@ app.use(cors(corsOptions));
   
       const coll = client.db('Assignment').collection('mean');
       const filter = JsonFetchDataModel;
-      const cursor = coll.find(filter);
-      const result = await cursor.toArray();
+  
+      // Fetch all documents in the collection
+      const result = await coll.find(filter).toArray();
+  
+      // Set the response status and body
+      res.status(200).json({
+        result,
+      });
   
       await client.close();
-
-      res.status(200).json(result);
     } catch (error: any) {
       console.error("Error fetching data:", error);
       res.status(500).json({ message: error.message });
     }
   });
+  

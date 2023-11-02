@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-
 // Define a schema for the data
 const JsonFetchDataModel = {
   end_year: String,
