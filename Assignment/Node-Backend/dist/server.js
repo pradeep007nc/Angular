@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// Import the necessary packages
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const mongodb_1 = require("mongodb");
@@ -43,14 +42,14 @@ app.get("/fetch-data", async (req, res) => {
 //GET /fetch-data-by-all-filters?endYear=2023&topics=gas
 app.get("/fetch-data-by-all-filters", async (req, res) => {
     try {
-        const { endYear, topics, sector, region, pestle, source } = req.query;
+        const { endYear, topic, sector, region, pestle, source } = req.query;
         // Create a MongoDB query
         const query = {};
         if (endYear) {
             query.end_year = { $gt: parseInt(endYear.toString()) };
         }
-        if (topics) {
-            query.topic = { $eq: topics };
+        if (topic) {
+            query.topic = topic;
         }
         if (sector) {
             query.sector = sector;
@@ -73,6 +72,7 @@ app.get("/fetch-data-by-all-filters", async (req, res) => {
         res.status(200).json({
             result,
         });
+        await client.close();
     }
     catch (error) {
         console.error("Error fetching data:", error);
@@ -94,6 +94,7 @@ app.get("/fetch-data-by-end-year/:endYear", async (req, res) => {
         res.status(200).json({
             result,
         });
+        await client.close();
     }
     catch (error) {
         console.error("Error fetching data:", error);
@@ -115,6 +116,7 @@ app.get("/fetch-data-by-topics/:topics", async (req, res) => {
         res.status(200).json({
             result,
         });
+        await client.close();
     }
     catch (error) {
         console.error("Error fetching data:", error);
@@ -136,6 +138,7 @@ app.get("/fetch-data-by-sector/:sector", async (req, res) => {
         res.status(200).json({
             result,
         });
+        await client.close();
     }
     catch (error) {
         console.error("Error fetching data:", error);
@@ -157,6 +160,7 @@ app.get("/fetch-data-by-region/:region", async (req, res) => {
         res.status(200).json({
             result,
         });
+        await client.close();
     }
     catch (error) {
         console.error("Error fetching data:", error);
@@ -178,6 +182,7 @@ app.get("/fetch-data-by-pestle/:pestle", async (req, res) => {
         res.status(200).json({
             result,
         });
+        await client.close();
     }
     catch (error) {
         console.error("Error fetching data:", error);

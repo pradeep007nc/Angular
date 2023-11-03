@@ -1,4 +1,3 @@
-// Import the necessary packages
 import express, { Request, Response } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -47,15 +46,15 @@ app.get("/fetch-data", async (req: Request, res: Response) => {
 //GET /fetch-data-by-all-filters?endYear=2023&topics=gas
 app.get("/fetch-data-by-all-filters", async (req: Request, res: Response) => {
   try {
-    const { endYear, topics, sector, region, pestle, source }= req.query;
+    const { endYear, topic, sector, region, pestle, source }= req.query;
 
     // Create a MongoDB query
     const query: any = {};
     if (endYear) {
       query.end_year = { $gt: parseInt(endYear.toString()) };
     }
-    if (topics) {
-      query.topic = { $eq: topics };
+    if (topic) {
+      query.topic = topic ;
     }
     if (sector) {
       query.sector = sector;
@@ -81,6 +80,7 @@ app.get("/fetch-data-by-all-filters", async (req: Request, res: Response) => {
     res.status(200).json({
       result,
     });
+    await client.close();
   } catch (error: any) {
     console.error("Error fetching data:", error);
     res.status(500).json({ message: error.message });
@@ -106,6 +106,7 @@ app.get("/fetch-data-by-end-year/:endYear", async (req: Request, res: Response) 
     res.status(200).json({
       result,
     });
+    await client.close();
   } catch (error: any) {
     console.error("Error fetching data:", error);
     res.status(500).json({ message: error.message });
@@ -131,6 +132,7 @@ app.get("/fetch-data-by-topics/:topics", async (req: Request, res: Response) => 
     res.status(200).json({
       result,
     });
+    await client.close();
   } catch (error: any) {
     console.error("Error fetching data:", error);
     res.status(500).json({ message: error.message });
@@ -156,6 +158,7 @@ app.get("/fetch-data-by-sector/:sector", async (req: Request, res: Response) => 
     res.status(200).json({
       result,
     });
+    await client.close();
   } catch (error: any) {
     console.error("Error fetching data:", error);
     res.status(500).json({ message: error.message });
@@ -182,6 +185,7 @@ app.get("/fetch-data-by-region/:region", async (req: Request, res: Response) => 
     res.status(200).json({
       result,
     });
+    await client.close();
   } catch (error: any) {
     console.error("Error fetching data:", error);
     res.status(500).json({ message: error.message });
@@ -207,6 +211,7 @@ app.get("/fetch-data-by-pestle/:pestle", async (req: Request, res: Response) => 
     res.status(200).json({
       result,
     });
+    await client.close();
   } catch (error: any) {
     console.error("Error fetching data:", error);
     res.status(500).json({ message: error.message });
