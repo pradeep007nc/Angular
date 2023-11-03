@@ -1,15 +1,4 @@
-<ul *ngFor="let item of data">
-  <li>{{item.added}}</li>
-  <li>{{item.country}}</li>
-  <li>{{item.end_year}}</li>
-  <li>{{item.impact}}</li>
-  <li>{{item.insight}}</li>
-  <li>{{item.intensity}}</li>
-  <li>{{item.likelihood}}</li>
-  <li>{{item.likelihood}}</li>
-  <li>{{item.pestle}}</li>
-  <li>{{item.region}}</li>
-  <li>{{item.published}}</li>
-  <li>{{item.relevance}}</li>
-  <li>{{item.sector}}</li>
-</ul>
+<button (click)="onChanges()">click me little brat</button>
+<p *ngFor="let item of data">
+  <span>{{ item.sector}}</span>
+</p>

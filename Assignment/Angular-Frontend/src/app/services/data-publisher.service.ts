@@ -25,6 +25,20 @@ export class DataPublisherService {
     );
   }
 
+  fetchAllByFilters(filters: any) {
+    // Create a new URL based on the `filters` object.
+    const url = `/fetch-data-by-all-filters?${Object.keys(filters).map(key => `${key}=${filters[key]}`).join('&')}`;
+
+    // Call the `fetchByDataFilters()` function with the new URL as the only parameter.
+    return from(axios({
+      method: 'GET',
+      url
+    })).pipe(
+      map((response: AxiosResponse<_embedded>) => response.data)
+    );
+  }
+
+
 }
 
 interface _embedded {
