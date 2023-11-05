@@ -16,12 +16,12 @@ export class DataPublisherService {
 
   private baseUrl: string = environment.baseUrl;
 
-  fetchAllData(): Observable<_embedded> {
+  fetchAllData(): Observable<JsonResponse> {
     return from(axios({
       method: 'GET',
       url: '/fetch-data'
     })).pipe(
-      map((response: AxiosResponse<_embedded>) => response.data)
+      map((response: AxiosResponse<JsonResponse>) => response.data)
     );
   }
 
@@ -34,13 +34,13 @@ export class DataPublisherService {
       method: 'GET',
       url
     })).pipe(
-      map((response: AxiosResponse<_embedded>) => response.data)
+      map((response: AxiosResponse<JsonResponse>) => response.data)
     );
   }
 
 
 }
 
-interface _embedded {
+interface JsonResponse {
     result: DataSkeleton[];
 }

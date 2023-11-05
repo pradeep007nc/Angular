@@ -1,4 +1,45 @@
-<button (click)="onChanges()">click me little brat</button>
-<p *ngFor="let item of data">
+<!-- <button (click)="onChanges()">click me little brat</button>
+<p *ngFor="let item of filteredData">
   <span>{{ item.sector}}</span>
-</p>
+</p> -->
+
+<form  [formGroup]="form">
+  <label for="endYear">End Year:</label>
+  <input type="date" id="endYear" formControlName="endYear">
+
+  <label for="topic">Topic:</label>
+  <select id="topic" formControlName="topic">
+    <option value="">Select Topic</option>
+    <option *ngFor="let topic of uniqueFilterMap.get('topic')" [value]="topic">{{ topic }}</option>
+  </select>
+
+  <label for="sector">Sector:</label>
+  <select id="sector" formControlName="sector">
+    <option value="">Select Sector</option>
+    <option *ngFor="let sector of uniqueFilterMap.get('sector')" [value]="sector">{{ sector }}</option>
+  </select>
+
+  <label for="region">Region:</label>
+  <select id="region" formControlName="region">
+    <option value="">Select Region</option>
+    <option *ngFor="let region of uniqueFilterMap.get('region')" [value]="region">{{ region }}</option>
+  </select>
+
+  <label for="pestle">Pestle:</label>
+  <select id="pestle" formControlName="pestle">
+    <option value="">Select Pestle</option>
+    <option *ngFor="let pestle of uniqueFilterMap.get('pestle')" [value]="pestle">{{ pestle }}</option>
+  </select>
+
+  <label for="source">Source:</label>
+  <select id="source" formControlName="source">
+    <option value="">Select Source</option>
+    <option *ngFor="let source of uniqueFilterMap.get('source')" [value]="source">{{ source }}</option>
+  </select>
+
+</form>
+
+<button (click)="applyFilters()">Apply Filters</button>
+
+
+<app-chart-area [filters]="filters"></app-chart-area>
