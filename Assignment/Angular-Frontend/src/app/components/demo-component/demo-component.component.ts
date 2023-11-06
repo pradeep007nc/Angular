@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { DataSkeleton } from 'src/app/Entities/data-skeleton';
 import { DataPublisherService } from 'src/app/services/data-publisher.service';
-import * as d3 from 'd3';
 import { Form, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
