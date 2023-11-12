@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="container">
+    <div *ngIf="sectorMap">
+      <app-pie-chart [data]="sectorMap"></app-pie-chart>
+    </div>
+  </div>
+
+  <div class="container">
+    <div *ngIf="sectorMap">
+      <app-bar-chart
+        [data]="sectorMap"
+        [filteredData]="filteredData"
+      ></app-bar-chart>
+    </div>
+  </div>
+
+  <div class="container">
+    <div *ngIf="sectorMap">
+      <app-line-chart
+        [data]="sectorMap"
+        [filteredData]="filteredData"
+      ></app-line-chart>
+    </div>
+  </div>
+</div>
